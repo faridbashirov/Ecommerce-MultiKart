@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+    
+    
+    <!-- breadcrumb start -->
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="page-title">
+                        <h2>customer's login</h2>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item active">login</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb End -->
+
+
+    <!--section start-->
+    <section class="login-page section-b-space">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <h3>Login</h3>
+                    <div class="theme-card">
+                        <form method="POST" class="theme-form">
+                            {%csrf_token%}
+                            <div class="form-group">
+                                <label for="email">Username</label>
+                                {{form.username}}
+                                <ul>
+                                    {%for error in form.username.errors%}
+                                    <li>{{error}}</li>
+                                    {%endfor%}
+                                </ul>
+                                
+                            </div>
+                            <div class="form-group">
+                                <label for="review">Password</label>
+                                {{form.password}}
+                                <ul>
+                                    {%for error in form.password.errors%}
+                                    <li>{{error}}</li>
+                                    {%endfor%}
+                                </ul>
+
+                            </div>
+                            
+                            <button type="submit" class="btn btn-solid"> Login</button><a href="/forget_pwd/" style="border-left: 1px solid white; "class="btn btn-solid">Forget password</a>
+                            <div class="d-flex social-logins w-100 align-items-center justify-content-start mt-4">
+                               <div class="d-flex align-items-center justify-content-start w-50"> <a href="{% url 'social:begin' 'facebook' %}" class="social d-flex align-items-center justify-content-center  bg-danger "style="width:50px;height:50px;border-radius:50%"><i class="fa fa-facebook social-login fb-color text-white " style="font-size:25px;"></i></a> <a class="text-dark mx-2">Login with Facebook</a></div>
+                               <div class="d-flex align-items-center justify-content-start w-50"> <a href="{% url 'social:begin' 'google-oauth2' %}" class="social d-flex align-items-center justify-content-center  bg-danger mx-3 " style="width:50px;height:50px;border-radius:50%"><i class="fa fa-google-plus social-login google-color text-white" style="font-size:25px"></i></a>  <a class="text-dark mx-2">Login with Gmail</a></div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-6 right-login">
+                    <h3>New Customer</h3>
+                    <div class="theme-card authentication-right">
+                        <h6 class="title-font">Create A Account</h6>
+                        <p>Sign up for a free account at our store. Registration is quick and easy. It allows you to be
+                            able to order from our shop. To start shopping click register.</p><a href="/register/"
+                            class="btn btn-solid">Create an Account</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--Section ends-->
+
+{% endblock %}

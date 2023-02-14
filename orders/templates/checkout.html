@@ -1,0 +1,242 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+    <!-- breadcrumb start -->
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="page-title">
+                        <h2>Check-out</h2>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Check-out</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb End -->
+
+
+    <!-- section start -->
+    <section class="section-b-space">
+        <div class="container">
+            <div class="checkout-page">
+                <div class="checkout-form">
+                    <form>
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-12 col-xs-12">
+                                <div class="checkout-title">
+                                    <h3>Billing Details</h3>
+                                </div>
+                                <div class="row check-out">
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <div class="field-label">First Name</div>
+                                        <input disabled type="text" name="field-name" value="{{request.user.first_name}}" placeholder="">
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <div class="field-label">Last Name</div>
+                                        <input disabled type="text" name="field-name" value="{{request.user.last_name}}" placeholder="">
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <div class="field-label">Phone</div>
+                                        <input type="text" name="field-name" value="" placeholder="">
+                                    </div>
+                                    <div class="form-group col-md-6 col-sm-6 col-xs-12">
+                                        <div class="field-label">Email Address</div>
+                                        <input disabled type="text" name="field-name" value="{{request.user.email}}" placeholder="">
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <div class="field-label">Country</div>
+                                        <input disabled type="text" name="{{usershipping.country}}" value="{{usershipping.country}}" placeholder="Street address">
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <div class="field-label">Address</div>
+                                        <input disabled type="text" name="{{usershipping.address}}" value="{{usershipping.address}}" placeholder="Street address">
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                        <div class="field-label">Town/City</div>
+                                        <input disabled type="text" name="{{usershipping.city}}" value="{{usershipping.city}}" placeholder="">
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-6 col-xs-12">
+                                        <div class="field-label">State / County</div>
+                                        <input disabled type="text" name="{{usershipping.region_state}}" value="{{usershipping.region_state}}" placeholder="">
+                                    </div>
+                                    <div class="form-group col-md-12 col-sm-6 col-xs-12">
+                                        <div class="field-label">Postal Code</div>
+                                        <input disabled type="text" name="{{usershipping.zip_code}}" value="{{usershipping.zip_code}}" placeholder="">
+                                    </div>
+                                    <div class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        
+                                        <label for="account-option">If you want to chance billing details please go to your Profile!</label><a href={%url "profile"%}>Profile</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-12 col-xs-12">
+                                <div class="checkout-details">
+                                    <div class="order-box">
+                                        <div class="title-box">
+                                            <div>Product <span>Total</span></div>
+                                        </div>
+                                        <ul class="qty">
+                                            {%for item in items%}
+                                            <li>{{item.product.title}} × {{item.quantity}} <span>${{item.get_total}}</span></li>
+                                            
+                                            {%endfor%}
+                                        </ul>
+                                        <ul class="sub-total">
+                                            <li>Subtotal <span class="count">${{order.get_total}}</span></li>
+                                            <li>Shipping
+                                                <div class="shipping">
+                                                    <div class="shopping-option">
+                                                        <input type="checkbox" name="free-shipping" id="free-shipping">
+                                                        <label for="free-shipping">Free Shipping</label>
+                                                    </div>
+                                                    <div class="shopping-option">
+                                                        <input type="checkbox" name="local-pickup" id="local-pickup">
+                                                        <label for="local-pickup">Local Pickup</label>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                        <ul class="total">
+                                            <li>Total <span class="count">${{order.get_total}}</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="payment-box">
+                                        <div class="upper-box">
+                                            <div class="payment-options">
+                                                <ul>
+                                                    <li>
+                                                        <div class="radio-option">
+                                                            <input type="radio" name="payment-group" id="payment-1"
+                                                                checked="checked">
+                                                            <label for="payment-1">Check Payments<span
+                                                                    class="small-text">Please send a check to Store
+                                                                    Name, Store Street, Store Town, Store State /
+                                                                    County, Store Postcode.</span></label>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="radio-option">
+                                                            <input type="radio" name="payment-group" id="payment-2">
+                                                            <label for="payment-2">Cash On Delivery<span
+                                                                    class="small-text">Please send a check to Store
+                                                                    Name, Store Street, Store Town, Store State /
+                                                                    County, Store Postcode.</span></label>
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="radio-option paypal">
+                                                            <input type="radio" name="payment-group" id="payment-3">
+                                                            <label for="payment-3">PayPal<span class="image"><img
+                                                                        src="{% static 'assets/images/paypal.png' %}"
+                                                                        alt=""></span></label>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        
+                                        {%if usershipping %}
+                                        <div id="paypal-button-container"></div>
+                                        {%else%}
+                                        <h5>U need to  first provide to us our Shipping Adress to complete your order </h5>
+                                        <div class="text-center"><a href="{%url "profile" %}" class="btn-solid btn">Go to Profile</a></div>
+                                        {%endif%}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- section end -->
+    <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+    <script>
+        var total="{{order.get_total}}"
+        var user="{{request.user.id}}"
+        console.log(total)
+        var order="{{order.id}}"
+        function getToken(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getToken('csrftoken');
+        // Render the PayPal button into #paypal-button-container
+        paypal.Buttons({
+
+            // Set up the transaction
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: total
+                        }
+                    }]
+                });
+            },
+
+            // Finalize the transaction
+            onApprove: async function(data, actions) {
+                return actions.order.capture().then(function(orderData) {
+                    // Successful capture! For demo purposes:
+                    console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                    var transaction = orderData.purchase_units[0].payments.captures[0];
+                    alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+                    
+                    fetch(`http://127.0.0.1:8000/api/orderbasket/${order}`,{
+                        method: 'PUT',
+                        headers:{
+                            "Content-Type": "application/json",
+                            "X-CSRFToken":csrftoken
+                    
+                        },
+                        body:JSON.stringify({"user":user, "complete":"true","transaction_id":transaction.id})
+                    })
+                    .then((response)=>{
+                        return response.json()
+                        
+                        
+                      })
+                    .then((data)=>{
+                        localStorage.setItem("transaction", transaction.id);
+                        localStorage.setItem("id", `${order}`);
+                        
+                        window.location.href = 'http://127.0.0.1:8000/order_success/';
+                        
+                     })
+                    // Replace the above to show a success message within this page, e.g.
+                    // const element = document.getElementById('paypal-button-container');
+                    // element.innerHTML = '';
+                    // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                    // Or go to another URL:  actions.redirect('thank_you.html');
+                });
+            }
+
+
+        }).render('#paypal-button-container');
+       
+    </script>
+{% endblock %}

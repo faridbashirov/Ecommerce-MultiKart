@@ -1,0 +1,124 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+    <!-- breadcrumb start -->
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="page-title">
+                        <h2>profile</h2>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">profile</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb End -->
+
+
+    <!-- personal deatail section start -->
+    <form action="{% url "profile"%}" class="theme-form" method="post" id="myform">
+        {%csrf_token%}
+    <section class="contact-page register-page">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3>PERSONAL DETAIL</h3>
+                   
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="name">First Name</label>
+                                {{form.first_name}}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email">Last Name</label>
+                                {{form.last_name}}
+                            </div>
+                           
+                            <div class="col-md-6">
+                                <label for="email">Email</label>
+                                {{form.email}}
+                            </div>
+                            
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Section ends -->
+
+
+    <!-- address section start -->
+    <section class="contact-page register-page section-b-space">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3>SHIPPING ADDRESS</h3>
+                   
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="name">flat / plot</label>
+                                {{form2.flat}}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="name">Address *</label>
+                                {{form2.address}}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email">Zip Code *</label>
+                                {{form2.zip_code}}
+                            </div>
+                            <div class="col-md-6 select_input">
+                                <label for="review">Country *</label>
+                                {{form2.country}}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="review">City *</label>
+                                {{form2.city}}
+                            </div>
+                            <div class="col-md-6">
+                                <label for="review">Region/State *</label>
+                                {{form2.region_state}}
+                            </div>
+                            <div class="col-md-12 mt-3">
+                                <button class="btn btn-sm btn-solid" type="submit">Save setting</button>
+                            </div>
+                        </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
+    <script>
+        $.fn.extend({
+            trackChanges: function() {
+              $(":input",this).change(function() {
+                 $(this.form).data("changed", true);
+              });
+            }
+            ,
+            isChanged: function() { 
+              return this.data("changed"); 
+            }
+           });
+           $("#myform").trackChanges()
+           if ($("#myform").isChanged()) {
+              console.log(:farid)
+         }
+    </script>
+
+{% endblock %}
+

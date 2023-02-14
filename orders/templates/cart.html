@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+
+    <!-- breadcrumb start -->
+    <div class="breadcrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="page-title">
+                        <h2>cart</h2>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <nav aria-label="breadcrumb" class="theme-breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/">Home</a></li>
+                            <li class="breadcrumb-item active">cart</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- breadcrumb End -->
+
+
+    <!--section start-->
+    <section class="cart-section section-b-space">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="table cart-table carttitle table-responsive-xs">
+                        <thead>
+                            <tr class="table-head">
+                                <th scope="col">image</th>
+                                <th scope="col">product name</th>
+                                <th scope="col">price</th>
+                                <th scope="col">quantity</th>
+                                <th scope="col">color/size</th>
+                                
+                                <th scope="col">action</th>
+                                <th scope="col">total</th>
+                            </tr>
+                        </thead>
+                        {% comment %} {% for item in items%}
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a href="#"><img src="/{{item.product.main_img}}" alt=""></a>
+                                </td>
+                                <td><a href="#">{{item.product.title}}</a>
+                                    <div class="mobile-cart-content row">
+                                        <div class="col-xs-3">
+                                            <div class="qty-box">
+                                                <div class="input-group">
+                                                    <input type="text" name="quantity" class="form-control input-number"
+                                                        value="1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <h2 class="td-color">$63.00</h2>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <h2 class="td-color"><a href="#" class="icon"><i class="ti-close"></i></a>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <h2>{{item.product.price|floatformat:2}}</h2>
+                                </td>
+                                <td>
+                                    <div class="qty-box">
+                                        <div class="input-group">
+                                            
+                                            <input type="text" name="quantity" class="form-control "
+                                                value="{{item.quantity}}">
+                                                 <div style="height:50px"   class="arrows d-flex flex-column ml-2 justify-content-between">
+                                                   <i data-quantity={{item.quantity}} data-action="add" data-product={{item.product.id}} class="fa-solid fa-arrow-up update-cart"></i>
+                                                    <i data-quantity={{item.quantity}} data-action="remove" data-product={{item.product.id}} class="fa-solid fa-arrow-down mt-2 update-cart"></i>
+                                                 </div>
+                                                
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><a data-quantity={{item.quantity}} data-action="delete" data-product={{item.product.id}}  href="/cart" class="icon update-cart"><i class="ti-close"></i></a></td>
+                                <td>
+                                    <h2 class="td-color">${{item.get_total}}</h2>
+                                </td>
+                            </tr>
+                        </tbody>
+                        {%endfor%} {% endcomment %}
+                       
+                    </table>
+                    <table class="table cart-table table-responsive-md">
+                        
+                        <tfoot>
+                            <tr>
+                                <td>total price :</td>
+                                <td>
+                                    <h2 id="total">$</h2>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div class="row cart-buttons">
+                <div class="col-6"><a href="/" class="btn btn-solid">continue shopping</a></div>
+                <div class="col-6"><a href="{%url "checkout"%}" class="btn btn-solid checkout">check out</a></div>
+            </div>
+        </div>
+    </section>
+    <!--section end-->
+    {% block js%}
+    <script src="{% static 'assets/js/cart.js' %}"></script>
+    <script  type="text/javascript">
+        var User="{{request.user}}"
+        var UserId="{{request.user.id}}"
+        function getCookie(name) {
+    
+            var cookieArr = document .cookie.split(";");
+            
+            for(var i=0;i<cookieArr.length;i++){
+                var cookiePair = cookieArr[i].split("=");
+                if(name == cookiePair[0].trim()) {
+                    return   decodeURIComponent(cookiePair[1])
+            }
+        }
+        
+        return null;
+        }
+        var cart=JSON.parse(getCookie("cart"))
+        
+        if(cart== undefined){
+            cart={}
+            console.log("cart created",cart)
+            document.cookie='cart='+ JSON.stringify(cart)+";domain=;path=/"
+        }
+        console.log("Cart:",cart)
+        
+    </script>
+    {%endblock%}
+
+{% endblock %}
